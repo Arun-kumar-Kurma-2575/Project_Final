@@ -75,11 +75,11 @@ if file is not None:
        google_api_key=api_key,
        task_type='retrieval_query'
     )
-    #Step-5 :Getting the embeddings and storing them in VectorDB(Chroma or FIASS)
+    #Getting the embeddings and storing them in VectorDB(Chroma or FIASS)
     #create the vector store and store the embeddings init
     vectordb=Chroma.from_documents(documents=text,embedding=embeddings)
 
-    # Step-6:Make the Prompt Template
+    #Make the Prompt Template
     # here we are controlling the model with the propmt template
 
     prompt_template="""
