@@ -3,7 +3,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
-from langchain.chains import VectorDBQA,RetrievalQA,LLMChain
+from langchain.chains import RetrievalQA # VectorDBQA,RetrievalQA,LLMChain
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain_google_genai import ChatGoogleGenerativeAI
 import streamlit as st
@@ -59,12 +59,11 @@ if file is not None:
         temp_file.write(file.read())
         temp_file_path = temp_file.name
 
-    loader = PyPDFLoader(temp_file_path)
-
-    # if file is not None:
     #     # Document Loader
-    #     loader=PyPDFLoader(file)
+    loader = PyPDFLoader(temp_file_path)
     documents=loader.load()
+
+
     # Text Splitting
     text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=150)
     text=text_splitter.split_documents(documents)
@@ -75,11 +74,12 @@ if file is not None:
        google_api_key=api_key,
        task_type='retrieval_query'
     )
+
     #Getting the embeddings and storing them in VectorDB(Chroma or FIASS)
-    #create the vector store and store the embeddings init
+    # create the vector store and store the embeddings init
     vectordb=Chroma.from_documents(documents=text,embedding=embeddings)
 
-    #Make the Prompt Template
+    # Make the Prompt Template
     # here we are controlling the model with the propmt template
 
     prompt_template="""
@@ -113,7 +113,6 @@ if file is not None:
 
 
     # Setting up the Chatmodel for retrieval
-    # setting up the Chatmodel
     from google.generativeai.types.safety_types import HarmBlockThreshold,HarmCategory
 
     safety_settings={HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT:HarmBlockThreshold.BLOCK_LOW_AND_ABOVE,
