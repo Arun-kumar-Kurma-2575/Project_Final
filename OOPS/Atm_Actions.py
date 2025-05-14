@@ -6,21 +6,21 @@ class ATM:
         self.balance=0
         for i in range(10):
             self.id+=str(random.randint(0,9))
-        print(self.id)
+        self.pin=input('SET your PIN:')
+        print(f'PIN set successfully for your bank id {self.id}')
         self.menu()
 
     def menu(self):
         option=input("""
              Welcome to the  ATM!!!
              click the option  to perform a task
-             1- for  SETTING THE PIN
+             1- for  CHANGING THE PIN
              2- for  DEPOSIT
-             3-  for  WITHDRAWING
+             3- for  WITHDRAWING
              4- for  CHECKING THE BALANCE
-             5- for EXIT
-                     """)
+             5- for  EXIT""")
         if option=='1':
-            self.create_pin()
+            self.change_pin()
         elif option=='2':
             self.deposit()
         elif option=='3':
@@ -33,15 +33,29 @@ class ATM:
             print('Enter the valid option')
 
 
-    def create_pin(self):
-        self.pin=input("Enter The PIN:")
-        print(f'PIN set successfully for your bank id {self.id}')
-        self.menu()
+    def change_pin(self):
+        i=0
+        while i<3:
+                temp_pin=input("Enter The PIN:")
+                if self.pin==temp_pin:
+                    self.pin=input("Enter The new PIN:")
+                    print(f'PIN changed successfully for your bank id {self.id}')
+                    break
+
+                else:
+                    if i<3:
+                        print('Entered pin is incorrect,Try again')
+                    else:
+                        print('PIN Entered incorrectly 3 times,limit exceeded')
+
+                i+=1
+
+        if i<3:
+            self.menu()
+        else:
+            print('limit exceeded,Try after some time')
 
     def  deposit(self):
-        if self.pin=='':
-            print('Set the pin first')
-        else:
             i=0
             while i<3:
                 temp_pin=input("Enter The PIN:")
@@ -74,7 +88,7 @@ class ATM:
                     print('Insufficient balance in your account')
                 else:
                     self.balance-=amount
-                
+                    print('{} withdrawn successfully from the bank id{}'.format(amount,self.id))
                 break
 
             else:
