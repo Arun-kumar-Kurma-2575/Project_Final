@@ -6,7 +6,7 @@ class ATM:
         self.balance=0
         for i in range(10):
             self.id+=str(random.randint(0,9))
-        self.pin=input('SET your PIN:')
+        self.pin=input('SET your PIN first:')
         print(f'PIN set successfully for your bank id {self.id}')
         self.menu()
 
@@ -18,7 +18,8 @@ class ATM:
              2- for  DEPOSIT
              3- for  WITHDRAWING
              4- for  CHECKING THE BALANCE
-             5- for  EXIT""")
+             5- for  EXIT
+""")
         if option=='1':
             self.change_pin()
         elif option=='2':
@@ -27,10 +28,8 @@ class ATM:
             self.withdraw()
         elif option=='4':
             self.check_balance()
-        elif option=='5':
-            pass
         else: 
-            print('Enter the valid option')
+            print('Thank you for availing our services')
 
 
     def change_pin(self):
@@ -62,7 +61,7 @@ class ATM:
                 if self.pin==temp_pin:
                     amount=eval(input('Enter the amount you want to deposit:'))
                     self.balance+=amount
-                    print('{} deposited successfully into the bank id{}'.format(amount,self.id))
+                    print('{} deposited successfully into the bank id {}'.format(amount,self.id))
                     break
 
                 else:
@@ -88,7 +87,7 @@ class ATM:
                     print('Insufficient balance in your account')
                 else:
                     self.balance-=amount
-                    print('{} withdrawn successfully from the bank id{}'.format(amount,self.id))
+                    print('{} withdrawn successfully from the bank id {}'.format(amount,self.id))
                 break
 
             else:
