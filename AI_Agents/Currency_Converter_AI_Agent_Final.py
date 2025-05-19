@@ -388,11 +388,11 @@ agent_executor = initialize_agent(
 col1, col2 = st.columns(2)
 
 with col1:
-    base_currency_option = st.selectbox("From", options=currency_list)
+    base_currency_option = st.selectbox("Base_currency", options=currency_list)
     base_amount = st.number_input("Amount", min_value=0.0, step=1.0)
 
 with col2:
-    target_currency_option = st.selectbox("To", options=currency_list)
+    target_currency_option = st.selectbox("Target_currency", options=currency_list)
 
 
 base_currency = currency_dict[base_currency_option]
